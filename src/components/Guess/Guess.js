@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { range } from "../../utils";
 import { checkGuess } from "../../game-helpers";
 
@@ -7,8 +7,13 @@ function Cell({ letter, status }) {
   return <span className={className}>{letter}</span>;
 }
 
-function Guess({ word, answer }) {
+function Guess({ word, answer, setStatus }) {
   const checkWord = checkGuess(word, answer);
+
+  useEffect(() => {
+    setStatus(checkWord);
+  }, [checkWord, setStatus]);
+
   return (
     <p className="guess">
       {range(5).map((num) => (
